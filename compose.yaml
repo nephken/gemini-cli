@@ -1,0 +1,45 @@
+services:
+  gemini-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gemini-cli
+    # インタラクティブモードで起動
+    tty: true
+    stdin_open: true
+    # 作業ディレクトリをマウント
+    volumes:
+      - ./workspace:/workspace
+      - ./config:/home/node/.config
+    working_dir: /workspace
+    environment:
+      # APIキーを環境変数として設定（必要に応じて）
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      # Node.jsの設定
+      - NODE_ENV=development
+    # ポート設定（必要に応じて）
+    ports:
+      - "3000:3000"
+    # コンテナ起動時にbashを実行
+    command: /bin/bash
+    # 再起動設定
+    restart: unless-stopped
+    # ヘルスチェック
+    healthcheck:
+      test: ["CMD", "node", "--version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - gemini-network
+
+networks:
+  gemini-network:
+    driver: bridge
+
+volumes:
+  # 永続化用ボリューム
+  config-data:
+    driver: local
+  workspace-data:
+    driver: local

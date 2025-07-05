@@ -48,10 +48,10 @@ echo "GEMINI_API_KEY=your_api_key_here" > .env
 
 ```bash
 # コンテナをビルドして起動
-docker-compose up -d --build
+docker compose up -d --build
 
 # コンテナに接続
-docker-compose exec gemini-cli bash
+docker compose exec gemini-cli bash
 ```
 
 ### 4. Gemini CLIの使用
@@ -112,7 +112,7 @@ npx https://github.com/google-gemini/gemini-cli
 
 ```bash
 # nodeユーザーでコンテナを起動
-docker-compose exec --user node gemini-cli bash
+docker compose exec --user node gemini-cli bash
 ```
 
 ### 設定のリセット
@@ -126,8 +126,8 @@ rm -rf config/*
 
 ```bash
 # コンテナを停止して再起動
-docker-compose down
-docker-compose up -d --build
+docker compose down
+docker compose up -d --build
 ```
 
 ## 注意事項

@@ -12,6 +12,11 @@ RUN apk update && apk add --no-cache \
     ca-certificates \
     && rm -rf /var/cache/apk/*
 
+# 日本語環境の設定
+ENV LANG=ja_JP.UTF-8
+ENV LANGUAGE=ja_JP:ja
+ENV LC_ALL=ja_JP.UTF-8
+
 # Gemini CLIをグローバルインストール（rootユーザーで実行）
 RUN npm install -g @google/gemini-cli
 
